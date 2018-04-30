@@ -39,12 +39,12 @@ public class Example3Controller {
 	
 	@GetMapping("/showform")
 	public String showForm(Model model) {
-		/*
+		
 		LOGGER.info("INFO TRACE");
 		LOGGER.warn("WARNING TRACE");
 		LOGGER.error("ERROR TRACE");
 		LOGGER.debug("DEBUG TRACE");
-		*/
+		
 		model.addAttribute("persona",new Person());
 		return FORM_VIEW;
 	}
@@ -52,6 +52,7 @@ public class Example3Controller {
 	@PostMapping("/addperson")
 	public ModelAndView addPerson(@Valid @ModelAttribute("persona") Person person, 
 			BindingResult bindingResult){
+		LOGGER.info("METHOD: 'addPerson' -- PARAMS: '"+person+"'");
 		ModelAndView mv=new ModelAndView(RESULT_VIEW);
 		if(bindingResult.hasErrors()) {
 			mv.setViewName(FORM_VIEW);
@@ -59,6 +60,7 @@ public class Example3Controller {
 			mv.setViewName(RESULT_VIEW);
 			mv.addObject("person",person);
 		}
+		LOGGER.info("TEMPLATE: '"+RESULT_VIEW+"' -- DATA: '"+person+"'");
 		return mv;
 	}
 }
